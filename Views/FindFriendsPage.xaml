@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PayBuddyApp.Views.FindFriendsPage"
+    Title="Find venner"
+    BackgroundColor="#F5F6FA">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        <!-- Top -->
+        <Grid Padding="20,20,20,10" ColumnDefinitions="Auto,*">
+            <Button Text="←"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    CornerRadius="22"
+                    BackgroundColor="White"
+                    TextColor="#1F2937"
+                    Clicked="OnBackClicked" />
+
+            <Label Grid.Column="1"
+                   Text="Find venner"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   TextColor="#1F2937" />
+        </Grid>
+
+        <!-- Search -->
+        <Grid Grid.Row="1" Padding="20,10" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+            <Entry Placeholder="Søg efter username"
+                   Text="{Binding SearchTerm}"
+                   BackgroundColor="White"
+                   TextColor="#1F2937" />
+
+            <Button Grid.Column="1"
+                    Text="Søg"
+                    Command="{Binding SearchCommand}"
+                    BackgroundColor="#6C5CE7"
+                    TextColor="White"
+                    CornerRadius="14" />
+        </Grid>
+
+        <!-- Results -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding SearchResults}"
+                        Margin="20,10,20,20"
+                        SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label Text="Ingen brugere fundet."
+                       TextColor="#6B7280" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="14"
+                           Margin="0,0,0,10"
+                           CornerRadius="16"
+                           BackgroundColor="White"
+                           HasShadow="False"
+                           BorderColor="#E5E7EB">
+                        <Grid ColumnDefinitions="50,*,Auto">
+                            <Frame WidthRequest="42"
+                                   HeightRequest="42"
+                                   CornerRadius="21"
+                                   Padding="0"
+                                   BackgroundColor="#EEF2FF"
+                                   HasShadow="False">
+                                <Label Text="👤"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       FontSize="20" />
+                            </Frame>
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding UserName}"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold"
+                                   FontSize="16"
+                                   TextColor="#1F2937" />
+
+                            <Button Grid.Column="2"
+                                    Text="Tilføj"
+                                    BackgroundColor="#E8F7F0"
+                                    TextColor="#008B94"
+                                    CornerRadius="12"
+                                    Padding="14,8"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddFriendCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

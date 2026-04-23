@@ -51,5 +51,13 @@ namespace PayBuddyApp.Services
 
             return await response.Content.ReadFromJsonAsync<TResponse>();
         }
+
+        public async Task<bool> DeleteAsync(string endpoint, bool authorized = false)
+        {
+            await AddAuthHeaderAsync(authorized);
+
+            var response = await _httpClient.DeleteAsync(endpoint);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

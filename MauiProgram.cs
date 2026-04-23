@@ -27,13 +27,23 @@ namespace PayBuddyApp
 
             builder.Services.AddSingleton<AppShell>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IDebtService, DebtService>();
+            builder.Services.AddScoped<IFriendshipService, FriendshipService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<HomeViewModel>();
+            builder.Services.AddTransient<FriendsViewModel>();
+            builder.Services.AddTransient<FindFriendsViewModel>();
 
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
             builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<FriendsPage>();
+            builder.Services.AddTransient<FindFriendsPage>();
+            builder.Services.AddTransient<CreateDebtPage>();
+            builder.Services.AddTransient<DebtsPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
