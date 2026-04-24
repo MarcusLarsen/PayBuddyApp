@@ -52,6 +52,22 @@ namespace PayBuddyApp.Services
             return await response.Content.ReadFromJsonAsync<TResponse>();
         }
 
+        public async Task<bool> PostAsync<TRequest>(string endpoint, TRequest data, bool authorized = false)
+        {
+            await AddAuthHeaderAsync(authorized);
+
+            var response = await _httpClient.PostAsJsonAsync(endpoint, data);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> PutAsync<TRequest>(string endpoint, TRequest data, bool authorized = false)
+        {
+            await AddAuthHeaderAsync(authorized);
+
+            var response = await _httpClient.PutAsJsonAsync(endpoint, data);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> DeleteAsync(string endpoint, bool authorized = false)
         {
             await AddAuthHeaderAsync(authorized);

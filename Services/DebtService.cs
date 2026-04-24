@@ -17,5 +17,15 @@ namespace PayBuddyApp.Services
             var result = await _apiService.GetAsync<List<DebtDto>>("api/debt/GetUserDebts", true);
             return result ?? new List<DebtDto>();
         }
+
+        public async Task<bool> CreateDebtAsync(DebtForSaveDto dto)
+        {
+            return await _apiService.PostAsync("api/debt/CreateDebt", dto, true);
+        }
+
+        public async Task<bool> MarkAsPaidAsync(int debtId)
+        {
+            return await _apiService.PutAsync($"api/debt/MarkAsPaid/{debtId}", new { }, true);
+        }
     }
 }

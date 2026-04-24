@@ -14,11 +14,11 @@ namespace PayBuddyApp.DTOs.Debt
         public string? DebtorName { get; set; }
 
         public decimal Amount { get; set; }
-
         public string? Description { get; set; }
 
         public bool IsPaid { get; set; }
-
         public DateTime CreatedAt { get; set; }
+
+        public string StatusText => IsPaid ? "Betalt" : "Ikke betalt";
     }
 }

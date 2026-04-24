@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PayBuddyApp.Views.CreateDebtPage"
-             Title="CreateDebtPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PayBuddyApp.Views.CreateDebtPage"
+    Title="Opret gæld"
+    BackgroundColor="#F5F6FA">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Top -->
+        <Grid Padding="20,20,20,10" ColumnDefinitions="Auto,*">
+            <Button Text="←"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    CornerRadius="22"
+                    BackgroundColor="White"
+                    TextColor="#1F2937"
+                    Clicked="OnBackClicked" />
+
+            <Label Grid.Column="1"
+                   Text="Ny gæld"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   TextColor="#1F2937" />
+        </Grid>
+
+        <!-- Form -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="16">
+
+                <Label Text="Vælg ven"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       TextColor="#1F2937" />
+
+                <Picker Title="Vælg en ven"
+                        ItemsSource="{Binding Friends}"
+                        ItemDisplayBinding="{Binding FriendUserName}"
+                        SelectedItem="{Binding SelectedFriend}" />
+
+                <Label Text="Beløb"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       TextColor="#1F2937" />
+
+                <Entry Placeholder="Fx 150"
+                       Keyboard="Numeric"
+                       Text="{Binding AmountText}" />
+
+                <Label Text="Beskrivelse"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       TextColor="#1F2937" />
+
+                <Editor Placeholder="Fx Pizza, biograf, lån..."
+                        AutoSize="TextChanges"
+                        HeightRequest="120"
+                        Text="{Binding Description}" />
+
+                <Button Text="Opret gæld"
+                        BackgroundColor="#6C5CE7"
+                        TextColor="White"
+                        CornerRadius="16"
+                        HeightRequest="52"
+                        Command="{Binding CreateDebtCommand}" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

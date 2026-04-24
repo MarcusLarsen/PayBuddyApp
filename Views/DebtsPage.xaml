@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PayBuddyApp.Views.DebtsPage"
-             Title="DebtsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PayBuddyApp.Views.DebtsPage"
+    Title="Gæld"
+    BackgroundColor="#F5F6FA">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Top -->
+        <Grid Padding="20" ColumnDefinitions="Auto,*">
+            <Button Text="←"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    CornerRadius="22"
+                    BackgroundColor="White"
+                    Clicked="OnBackClicked" />
+
+            <Label Grid.Column="1"
+                   Text="Gæld"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <!-- List -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Debts}"
+                        Margin="20"
+                        SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <Label Text="Ingen gæld endnu."
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="Gray" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="14"
+                           Margin="0,0,0,10"
+                           CornerRadius="16"
+                           BackgroundColor="White">
+
+                        <VerticalStackLayout Spacing="6">
+
+                            <Label Text="{Binding CreditorName}"
+                                   FontAttributes="Bold" />
+
+                            <Label Text="{Binding DebtorName}" />
+
+                            <Label Text="{Binding Amount, StringFormat='{}{0} kr'}"
+                                   FontSize="18"
+                                   TextColor="#6C5CE7" />
+
+                            <Label Text="{Binding Description}"
+                                   FontSize="12"
+                                   TextColor="Gray" />
+
+                            <Button Text="Markér som betalt"
+                                    IsVisible="{Binding IsPaid, Converter={StaticResource InverseBoolConverter}}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MarkAsPaidCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                            <Label Text="Betalt"
+                                   IsVisible="{Binding IsPaid}"
+                                   TextColor="Green"
+                                   FontAttributes="Bold" />
+
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

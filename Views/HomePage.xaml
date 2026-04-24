@@ -11,7 +11,7 @@
         <!-- Top -->
         <Grid Grid.Row="0" Padding="20,20,20,10" ColumnDefinitions="*,Auto">
             <VerticalStackLayout Spacing="2">
-                <Label Text="PayBuddy 👋"
+                <Label Text="PayBuddy"
                        FontSize="28"
                        FontAttributes="Bold"
                        TextColor="#1F2937" />
@@ -101,14 +101,18 @@
                                    BackgroundColor="White"
                                    HasShadow="False"
                                    BorderColor="#E5E7EB">
-                                <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="Auto,Auto">
+
+                                <!-- 🔥 HER ER DIN NYE GRID -->
+                                <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="Auto,Auto,Auto">
+
                                     <Frame WidthRequest="42"
                                            HeightRequest="42"
                                            CornerRadius="21"
                                            Padding="0"
                                            BackgroundColor="#EEF2FF"
                                            HasShadow="False"
-                                           VerticalOptions="Center">
+                                           VerticalOptions="Center"
+                                           Grid.RowSpan="3">
                                         <Label Text="👤"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"
@@ -140,7 +144,17 @@
                                            FontSize="12"
                                            TextColor="#9CA3AF"
                                            VerticalOptions="End" />
+
+                                    <!-- 🔥 STATUS -->
+                                    <Label Grid.Row="2"
+                                           Grid.Column="1"
+                                           Text="{Binding StatusText}"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="#6C5CE7" />
+
                                 </Grid>
+
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

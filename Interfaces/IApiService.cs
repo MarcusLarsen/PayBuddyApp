@@ -10,6 +10,9 @@ namespace PayBuddyApp.Interfaces
     {
         Task<T?> GetAsync<T>(string endpoint, bool authorized = false);
         Task<TResponse?> PostAsync<TRequest, TResponse>(string endpoint, TRequest data, bool authorized = false);
+        Task<bool> PostAsync<TRequest>(string endpoint, TRequest data, bool authorized = false);
+        Task<bool> PutAsync<TRequest>(string endpoint, TRequest data, bool authorized = false);
         Task<bool> DeleteAsync(string endpoint, bool authorized = false);
+
     }
 }
