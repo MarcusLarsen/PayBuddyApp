@@ -64,19 +64,28 @@ namespace PayBuddyApp.ViewModels
             if (user == null)
                 return;
 
-            var success = await _friendshipService.AddFriendAsync(new FriendForSaveDto
+            var success = await _friendshipService.SendFriendRequestAsync(new FriendForSaveDto
             {
                 FriendUserName = user.UserName
             });
 
             if (success)
             {
-                await Application.Current!.MainPage!.DisplayAlert("Succes", $"{user.UserName} blev tilføjet som ven.", "OK");
+                await Application.Current!.MainPage!.DisplayAlert(
+                    "Succes",
+                    $"Venneanmodning sendt til {user.UserName}.",
+                    "OK"
+                );
+
                 SearchResults.Remove(user);
             }
             else
             {
-                await Application.Current!.MainPage!.DisplayAlert("Fejl", "Kunne ikke tilføje ven.", "OK");
+                await Application.Current!.MainPage!.DisplayAlert(
+                    "Fejl",
+                    "Kunne ikke sende venneanmodning.",
+                    "OK"
+                );
             }
         }
     }

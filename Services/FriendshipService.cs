@@ -19,15 +19,35 @@ namespace PayBuddyApp.Services
             return result ?? new List<FriendDto>();
         }
 
+        public async Task<List<FriendRequestDto>> GetFriendRequestsAsync()
+        {
+            var result = await _apiService.GetAsync<List<FriendRequestDto>>("api/friendship/requests", true);
+            return result ?? new List<FriendRequestDto>();
+        }
+
+        public async Task<bool> SendFriendRequestAsync(FriendForSaveDto dto)
+        {
+            var result = await _apiService.PostAsync<FriendForSaveDto, MessageResponseDto>(
+                "api/friendship/request",
+                dto,
+                true);
+
+            return result != null;
+        }
+
+        public async Task<bool> AcceptFriendRequestAsync(int friendshipId)
+        {
+            return await _apiService.PutAsync($"api/friendship/accept/{friendshipId}", new { }, true);
+        }
+
+        public async Task<bool> DeclineFriendRequestAsync(int friendshipId)
+        {
+            return await _apiService.PutAsync($"api/friendship/decline/{friendshipId}", new { }, true);
+        }
+
         public async Task<bool> DeleteFriendAsync(int friendshipId)
         {
             return await _apiService.DeleteAsync($"api/friendship/{friendshipId}", true);
-        }
-
-        public async Task<bool> AddFriendAsync(FriendForSaveDto dto)
-        {
-            var result = await _apiService.PostAsync<FriendForSaveDto, MessageResponseDto>("api/friendship", dto, true);
-            return result != null;
         }
     }
 }

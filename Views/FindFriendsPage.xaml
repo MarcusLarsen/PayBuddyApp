@@ -80,7 +80,7 @@
                                    TextColor="#1F2937" />
 
                             <Button Grid.Column="2"
-                                    Text="Tilføj"
+                                    Text="Send Friend Request"
                                     BackgroundColor="#E8F7F0"
                                     TextColor="#008B94"
                                     CornerRadius="12"
