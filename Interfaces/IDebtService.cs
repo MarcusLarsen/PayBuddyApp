@@ -1,16 +1,15 @@
 ﻿using PayBuddyApp.DTOs.Debt;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PayBuddyApp.Interfaces
 {
     public interface IDebtService
     {
         Task<List<DebtDto>> GetUserDebtsAsync();
+        Task<List<DebtRequestDto>> GetDebtRequestsAsync();
+
         Task<bool> CreateDebtAsync(DebtForSaveDto dto);
+        Task<bool> AcceptDebtAsync(int debtId);
+        Task<bool> DeclineDebtAsync(int debtId);
         Task<bool> MarkAsPaidAsync(int debtId);
     }
 }

@@ -6,73 +6,144 @@
     Title="Gæld"
     BackgroundColor="#F5F6FA">
 
-    <Grid RowDefinitions="Auto,*">
-        <!-- Top -->
-        <Grid Padding="20" ColumnDefinitions="Auto,*">
-            <Button Text="←"
-                    WidthRequest="44"
-                    HeightRequest="44"
-                    CornerRadius="22"
-                    BackgroundColor="White"
-                    Clicked="OnBackClicked" />
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
 
-            <Label Grid.Column="1"
-                   Text="Gæld"
-                   FontSize="26"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
-        </Grid>
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Text="←"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        CornerRadius="22"
+                        BackgroundColor="White"
+                        TextColor="#1F2937"
+                        Clicked="OnBackClicked" />
 
-        <!-- List -->
-        <CollectionView Grid.Row="1"
-                        ItemsSource="{Binding Debts}"
-                        Margin="20"
-                        SelectionMode="None">
-
-            <CollectionView.EmptyView>
-                <Label Text="Ingen gæld endnu."
+                <Label Grid.Column="1"
+                       Text="Gæld"
+                       FontSize="26"
+                       FontAttributes="Bold"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
-                       TextColor="Gray" />
-            </CollectionView.EmptyView>
+                       TextColor="#1F2937" />
+            </Grid>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="14"
-                           Margin="0,0,0,10"
-                           CornerRadius="16"
-                           BackgroundColor="White">
+            <Label Text="Gældsanmodninger"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#1F2937" />
 
-                        <VerticalStackLayout Spacing="6">
+            <CollectionView ItemsSource="{Binding DebtRequests}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <Label Text="Ingen gældsanmodninger."
+                           TextColor="#6B7280" />
+                </CollectionView.EmptyView>
 
-                            <Label Text="{Binding CreditorName}"
-                                   FontAttributes="Bold" />
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="14"
+                               Margin="0,0,0,10"
+                               CornerRadius="16"
+                               BackgroundColor="White"
+                               HasShadow="False"
+                               BorderColor="#E5E7EB">
 
-                            <Label Text="{Binding DebtorName}" />
+                            <VerticalStackLayout Spacing="8">
 
-                            <Label Text="{Binding Amount, StringFormat='{}{0} kr'}"
-                                   FontSize="18"
-                                   TextColor="#6C5CE7" />
+                                <Label Text="{Binding CreditorName, StringFormat='Fra: {0}'}"
+                                       FontAttributes="Bold"
+                                       FontSize="16"
+                                       TextColor="#1F2937" />
 
-                            <Label Text="{Binding Description}"
-                                   FontSize="12"
-                                   TextColor="Gray" />
+                                <Label Text="{Binding Amount, StringFormat='Beløb: {0} kr'}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#6C5CE7" />
 
-                            <Button Text="Markér som betalt"
-                                    IsVisible="{Binding IsPaid, Converter={StaticResource InverseBoolConverter}}"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MarkAsPaidCommand}"
-                                    CommandParameter="{Binding .}" />
+                                <Label Text="{Binding Description}"
+                                       FontSize="13"
+                                       TextColor="#6B7280" />
 
-                            <Label Text="Betalt"
-                                   IsVisible="{Binding IsPaid}"
-                                   TextColor="Green"
-                                   FontAttributes="Bold" />
+                                <Label Text="{Binding CreatedAt, StringFormat='Sendt: {0:dd.MM.yyyy}'}"
+                                       FontSize="12"
+                                       TextColor="#9CA3AF" />
 
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                    <Button Text="Accepter"
+                                            BackgroundColor="#E8F7F0"
+                                            TextColor="#008B94"
+                                            CornerRadius="12"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AcceptDebtCommand}"
+                                            CommandParameter="{Binding .}" />
+
+                                    <Button Grid.Column="1"
+                                            Text="Afvis"
+                                            BackgroundColor="#FBEAEA"
+                                            TextColor="#E17055"
+                                            CornerRadius="12"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeclineDebtCommand}"
+                                            CommandParameter="{Binding .}" />
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Aktiv gæld"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#1F2937" />
+
+            <CollectionView ItemsSource="{Binding Debts}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <Label Text="Ingen aktiv gæld endnu."
+                           TextColor="#6B7280" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="14"
+                               Margin="0,0,0,10"
+                               CornerRadius="16"
+                               BackgroundColor="White"
+                               HasShadow="False"
+                               BorderColor="#E5E7EB">
+
+                            <VerticalStackLayout Spacing="6">
+
+                                <Label Text="{Binding DisplayText}"
+                                       FontAttributes="Bold"
+                                       FontSize="16"
+                                       TextColor="#1F2937" />
+
+                                <Label Text="{Binding Amount, StringFormat='{0} kr'}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#6C5CE7" />
+
+                                <Label Text="{Binding Description}"
+                                       FontSize="12"
+                                       TextColor="#6B7280" />
+
+                                <Label Text="{Binding StatusText}"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="#008B94" />
+
+                                <Button Text="Markér som betalt"
+                                        IsVisible="{Binding IsPaid, Converter={StaticResource InverseBoolConverter}}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MarkAsPaidCommand}"
+                                        CommandParameter="{Binding .}" />
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

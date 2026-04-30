@@ -6,67 +6,73 @@
     Title="Opret gæld"
     BackgroundColor="#F5F6FA">
 
-    <Grid RowDefinitions="Auto,*">
-        <!-- Top -->
-        <Grid Padding="20,20,20,10" ColumnDefinitions="Auto,*">
-            <Button Text="←"
-                    WidthRequest="44"
-                    HeightRequest="44"
-                    CornerRadius="22"
-                    BackgroundColor="White"
-                    TextColor="#1F2937"
-                    Clicked="OnBackClicked" />
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
 
-            <Label Grid.Column="1"
-                   Text="Ny gæld"
-                   FontSize="26"
-                   FontAttributes="Bold"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   TextColor="#1F2937" />
-        </Grid>
+            <Grid ColumnDefinitions="Auto,*">
+                <Button Text="←"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        CornerRadius="22"
+                        BackgroundColor="White"
+                        TextColor="#1F2937"
+                        Clicked="OnBackClicked" />
 
-        <!-- Form -->
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20" Spacing="16">
-
-                <Label Text="Vælg ven"
+                <Label Grid.Column="1"
+                       Text="Opret gæld"
+                       FontSize="26"
                        FontAttributes="Bold"
-                       FontSize="16"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
                        TextColor="#1F2937" />
+            </Grid>
 
-                <Picker Title="Vælg en ven"
-                        ItemsSource="{Binding Friends}"
-                        ItemDisplayBinding="{Binding FriendUserName}"
-                        SelectedItem="{Binding SelectedFriend}" />
+            <Frame CornerRadius="18"
+                   Padding="18"
+                   BackgroundColor="White"
+                   HasShadow="False"
+                   BorderColor="#E5E7EB">
 
-                <Label Text="Beløb"
-                       FontAttributes="Bold"
-                       FontSize="16"
-                       TextColor="#1F2937" />
+                <VerticalStackLayout Spacing="14">
 
-                <Entry Placeholder="Fx 150"
-                       Keyboard="Numeric"
-                       Text="{Binding AmountText}" />
+                    <Label Text="Vælg ven"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#374151" />
 
-                <Label Text="Beskrivelse"
-                       FontAttributes="Bold"
-                       FontSize="16"
-                       TextColor="#1F2937" />
+                    <Picker Title="Vælg en ven"
+                            ItemsSource="{Binding Friends}"
+                            ItemDisplayBinding="{Binding FriendUserName}"
+                            SelectedItem="{Binding SelectedFriend}" />
 
-                <Editor Placeholder="Fx Pizza, biograf, lån..."
-                        AutoSize="TextChanges"
-                        HeightRequest="120"
-                        Text="{Binding Description}" />
+                    <Label Text="Beløb"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#374151" />
 
-                <Button Text="Opret gæld"
-                        BackgroundColor="#6C5CE7"
-                        TextColor="White"
-                        CornerRadius="16"
-                        HeightRequest="52"
-                        Command="{Binding CreateDebtCommand}" />
+                    <Entry Placeholder="Fx 150"
+                           Keyboard="Numeric"
+                           Text="{Binding AmountText}" />
 
-            </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+                    <Label Text="Beskrivelse"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#374151" />
+
+                    <Editor Placeholder="Fx Pizza, transport eller lån..."
+                            AutoSize="TextChanges"
+                            HeightRequest="110"
+                            Text="{Binding Description}" />
+
+                    <Button Text="Send gældsanmodning"
+                            BackgroundColor="#6C5CE7"
+                            TextColor="White"
+                            CornerRadius="16"
+                            HeightRequest="52"
+                            Command="{Binding CreateDebtCommand}" />
+
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
