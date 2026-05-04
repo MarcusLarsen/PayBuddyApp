@@ -102,7 +102,6 @@
                                    HasShadow="False"
                                    BorderColor="#E5E7EB">
 
-                                <!-- 🔥 HER ER DIN NYE GRID -->
                                 <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="Auto,Auto,Auto">
 
                                     <Frame WidthRequest="42"
@@ -134,7 +133,7 @@
 
                                     <Label Grid.Row="1"
                                            Grid.Column="1"
-                                           Text="{Binding DebtorName, StringFormat='Debtor: {0}'}"
+                                           Text="{Binding DisplayText}"
                                            FontSize="13"
                                            TextColor="#6B7280" />
 
@@ -154,13 +153,10 @@
                                            TextColor="#6C5CE7" />
 
                                 </Grid>
-
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
-                <!-- Friends preview -->
                 <Grid ColumnDefinitions="*,Auto">
                     <Label Text="Dine venner"
                            FontSize="20"
@@ -172,7 +168,6 @@
                             TextColor="#6C5CE7"
                             Clicked="OnOpenFriendsClicked" />
                 </Grid>
-
                 <CollectionView ItemsSource="{Binding Friends}"
                                 ItemsLayout="HorizontalList"
                                 HeightRequest="90"
@@ -204,11 +199,9 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Bottom bar -->
         <Grid Grid.Row="2"
               BackgroundColor="#031B2D"
               Padding="20,12"
@@ -251,7 +244,6 @@
                 </VerticalStackLayout.GestureRecognizers>
             </VerticalStackLayout>
 
-            <!-- Floating plus -->
             <Frame Grid.ColumnSpan="4"
                    WidthRequest="74"
                    HeightRequest="74"

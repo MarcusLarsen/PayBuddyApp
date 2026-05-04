@@ -72,10 +72,13 @@ namespace PayBuddyApp.ViewModels
         {
             MoneyOwedToYou = Debts
                 .Where(d => !d.IsPaid)
-                .Where(d => d.CreditorName != null && d.DebtorName != null)
-                .Sum(d => d.Description != null && d.CreditorName != d.DebtorName ? d.Amount : d.Amount);
+                .Where(d => d.CurrentUserIsCreditor)
+                .Sum(d => d.Amount);
 
-            MoneyYouOwe = 0;
+            MoneyYouOwe = Debts
+                .Where(d => !d.IsPaid)
+                .Where(d => !d.CurrentUserIsCreditor)
+                .Sum(d => d.Amount);
         }
 
         public async Task LogoutAsync()
