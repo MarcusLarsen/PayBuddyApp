@@ -43,6 +43,10 @@ public partial class HomePage : ContentPage
     {
         await Shell.Current.GoToAsync(nameof(FindFriendsPage));
     }
+    private async void OnDebtTapped(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(DebtsPage));
+    }
 
     private async void OnProfileTapped(object sender, TappedEventArgs e)
     {

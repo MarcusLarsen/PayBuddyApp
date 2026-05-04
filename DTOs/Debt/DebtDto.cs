@@ -17,10 +17,10 @@
     public bool IsPaid => Status == "Paid";
     public bool IsAccepted => Status == "Accepted";
     public bool IsPending => Status == "Pending";
+    public bool CanMarkAsPaid => CurrentUserIsCreditor && !IsPaid;
 
     public string StatusText =>
         Status == "Paid" ? "Betalt" :
         Status == "Accepted" ? "Aktiv" :
-        Status == "Pending" ? "Afventer" :
-        "Afvist";
+        Status == "Pending" ? "Afventer" : "Afvist";
 }

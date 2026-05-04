@@ -15,6 +15,7 @@ namespace PayBuddyApp
             Routing.RegisterRoute(nameof(FindFriendsPage), typeof(FindFriendsPage));
             Routing.RegisterRoute(nameof(CreateDebtPage), typeof(CreateDebtPage));
             Routing.RegisterRoute(nameof(DebtsPage), typeof(DebtsPage));
+            Routing.RegisterRoute(nameof(NotificationsPage), typeof(NotificationsPage));
         }
     }
 }

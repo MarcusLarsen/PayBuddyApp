@@ -38,6 +38,7 @@ namespace PayBuddyApp
             builder.Services.AddTransient<FindFriendsViewModel>();
             builder.Services.AddTransient<DebtsViewModel>();
             builder.Services.AddTransient<CreateDebtViewModel>();
+            builder.Services.AddTransient<NotificationsViewModel>();
 
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<RegisterPage>();
@@ -47,6 +48,7 @@ namespace PayBuddyApp
             builder.Services.AddTransient<CreateDebtPage>();
             builder.Services.AddTransient<DebtsPage>();
             builder.Services.AddTransient<CreateDebtPage>();
+            builder.Services.AddTransient<NotificationsPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

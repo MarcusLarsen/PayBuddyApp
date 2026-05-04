@@ -2,153 +2,115 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:PayBuddyApp.Controls"
     x:Class="PayBuddyApp.Views.FriendsPage"
     Title="Venner"
     BackgroundColor="#F5F6FA">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="18">
+    <Grid RowDefinitions="*,90">
 
-            <Grid ColumnDefinitions="Auto,*">
-                <Button Text="←"
-                        WidthRequest="44"
-                        HeightRequest="44"
-                        CornerRadius="22"
-                        BackgroundColor="White"
-                        TextColor="#1F2937"
-                        Clicked="OnBackClicked" />
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="18">
 
-                <Label Grid.Column="1"
-                       Text="Venner"
+                <Label Text="Venner"
                        FontSize="26"
                        FontAttributes="Bold"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"
                        TextColor="#1F2937" />
-            </Grid>
 
-            <Label Text="Venneanmodninger"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   TextColor="#1F2937" />
+                <Label Text="Venneanmodninger"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937" />
 
-            <CollectionView ItemsSource="{Binding FriendRequests}"
-                            SelectionMode="None">
-                <CollectionView.EmptyView>
-                    <Label Text="Ingen venneanmodninger."
-                           TextColor="#6B7280" />
-                </CollectionView.EmptyView>
+                <CollectionView ItemsSource="{Binding FriendRequests}" SelectionMode="None">
+                    <CollectionView.EmptyView>
+                        <Label Text="Ingen venneanmodninger." TextColor="#6B7280" />
+                    </CollectionView.EmptyView>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Padding="14"
-                               Margin="0,0,0,10"
-                               CornerRadius="16"
-                               BackgroundColor="White"
-                               HasShadow="False"
-                               BorderColor="#E5E7EB">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="14"
+                                   Margin="0,0,0,10"
+                                   CornerRadius="16"
+                                   BackgroundColor="White"
+                                   HasShadow="False"
+                                   BorderColor="#E5E7EB">
 
-                            <VerticalStackLayout Spacing="10">
-                                <Grid ColumnDefinitions="50,*">
-                                    <Frame WidthRequest="42"
-                                           HeightRequest="42"
-                                           CornerRadius="21"
-                                           Padding="0"
-                                           BackgroundColor="#EEF2FF"
-                                           HasShadow="False">
-                                        <Label Text="👤"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center"
-                                               FontSize="20" />
-                                    </Frame>
+                                <VerticalStackLayout Spacing="10">
+                                    <Label Text="{Binding UserName}"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           TextColor="#1F2937" />
 
-                                    <VerticalStackLayout Grid.Column="1">
-                                        <Label Text="{Binding UserName}"
-                                               FontAttributes="Bold"
-                                               FontSize="16"
-                                               TextColor="#1F2937" />
+                                    <Label Text="{Binding CreatedAt, StringFormat='Sendt: {0:dd.MM.yyyy}'}"
+                                           FontSize="12"
+                                           TextColor="#6B7280" />
 
-                                        <Label Text="{Binding CreatedAt, StringFormat='Sendt: {0:dd.MM.yyyy}'}"
-                                               FontSize="12"
-                                               TextColor="#6B7280" />
-                                    </VerticalStackLayout>
-                                </Grid>
+                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                        <Button Text="Accepter"
+                                                BackgroundColor="#E8F7F0"
+                                                TextColor="#008B94"
+                                                CornerRadius="12"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AcceptRequestCommand}"
+                                                CommandParameter="{Binding .}" />
 
-                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                                    <Button Text="Accepter"
-                                            BackgroundColor="#E8F7F0"
-                                            TextColor="#008B94"
-                                            CornerRadius="12"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AcceptRequestCommand}"
-                                            CommandParameter="{Binding .}" />
+                                        <Button Grid.Column="1"
+                                                Text="Afvis"
+                                                BackgroundColor="#FBEAEA"
+                                                TextColor="#E17055"
+                                                CornerRadius="12"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeclineRequestCommand}"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-                                    <Button Grid.Column="1"
-                                            Text="Afvis"
+                <Label Text="Dine venner"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937" />
+
+                <CollectionView ItemsSource="{Binding Friends}" SelectionMode="None">
+                    <CollectionView.EmptyView>
+                        <Label Text="Du har ingen venner endnu." TextColor="#6B7280" />
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="14"
+                                   Margin="0,0,0,10"
+                                   CornerRadius="16"
+                                   BackgroundColor="White"
+                                   HasShadow="False"
+                                   BorderColor="#E5E7EB">
+
+                                <Grid ColumnDefinitions="50,*,Auto">
+                                    <Label Text="👤" FontSize="22" VerticalOptions="Center" />
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding FriendUserName}"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                           TextColor="#1F2937" />
+
+                                    <Button Grid.Column="2"
+                                            Text="Fjern"
                                             BackgroundColor="#FBEAEA"
                                             TextColor="#E17055"
                                             CornerRadius="12"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeclineRequestCommand}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveFriendCommand}"
                                             CommandParameter="{Binding .}" />
                                 </Grid>
-                            </VerticalStackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <Label Text="Dine venner"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   TextColor="#1F2937" />
-
-            <CollectionView ItemsSource="{Binding Friends}"
-                            SelectionMode="None">
-                <CollectionView.EmptyView>
-                    <Label Text="Du har ingen venner endnu."
-                           TextColor="#6B7280" />
-                </CollectionView.EmptyView>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Padding="14"
-                               Margin="0,0,0,10"
-                               CornerRadius="16"
-                               BackgroundColor="White"
-                               HasShadow="False"
-                               BorderColor="#E5E7EB">
-                            <Grid ColumnDefinitions="50,*,Auto">
-                                <Frame WidthRequest="42"
-                                       HeightRequest="42"
-                                       CornerRadius="21"
-                                       Padding="0"
-                                       BackgroundColor="#EEF2FF"
-                                       HasShadow="False">
-                                    <Label Text="👤"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"
-                                           FontSize="20" />
-                                </Frame>
-
-                                <Label Grid.Column="1"
-                                       Text="{Binding FriendUserName}"
-                                       VerticalOptions="Center"
-                                       FontAttributes="Bold"
-                                       FontSize="16"
-                                       TextColor="#1F2937" />
-
-                                <Button Grid.Column="2"
-                                        Text="Fjern"
-                                        BackgroundColor="#FBEAEA"
-                                        TextColor="#E17055"
-                                        CornerRadius="12"
-                                        Padding="14,8"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveFriendCommand}"
-                                        CommandParameter="{Binding .}" />
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
-    </ScrollView>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <controls:BottomNavBar Grid.Row="1" />
+    </Grid>
 </ContentPage>

@@ -2,13 +2,13 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:PayBuddyApp.Controls"
     x:Class="PayBuddyApp.Views.HomePage"
     Title="Home"
     BackgroundColor="#F5F6FA">
 
     <Grid RowDefinitions="Auto,*,90">
 
-        <!-- Top -->
         <Grid Grid.Row="0" Padding="20,20,20,10" ColumnDefinitions="*,Auto">
             <VerticalStackLayout Spacing="2">
                 <Label Text="PayBuddy"
@@ -27,28 +27,20 @@
                    Padding="0"
                    HasShadow="False"
                    BackgroundColor="White"
-                   BorderColor="#E5E7EB"
-                   VerticalOptions="Center">
+                   BorderColor="#E5E7EB">
                 <ImageButton Source="dotnet_bot.png"
                              BackgroundColor="Transparent"
                              Clicked="OnProfileClicked" />
             </Frame>
         </Grid>
 
-        <!-- Content -->
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="20,10,20,20" Spacing="18">
 
-                <!-- Summary cards -->
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-                    <Frame BackgroundColor="#E8F7F0"
-                           CornerRadius="18"
-                           Padding="16"
-                           HasShadow="False">
+                    <Frame BackgroundColor="#E8F7F0" CornerRadius="18" Padding="16" HasShadow="False">
                         <VerticalStackLayout Spacing="8">
-                            <Label Text="Du får penge"
-                                   FontSize="14"
-                                   TextColor="#374151" />
+                            <Label Text="Du får penge" FontSize="14" TextColor="#374151" />
                             <Label Text="{Binding MoneyOwedToYou, StringFormat='{0} kr'}"
                                    FontSize="30"
                                    FontAttributes="Bold"
@@ -56,15 +48,9 @@
                         </VerticalStackLayout>
                     </Frame>
 
-                    <Frame Grid.Column="1"
-                           BackgroundColor="#FBEAEA"
-                           CornerRadius="18"
-                           Padding="16"
-                           HasShadow="False">
+                    <Frame Grid.Column="1" BackgroundColor="#FBEAEA" CornerRadius="18" Padding="16" HasShadow="False">
                         <VerticalStackLayout Spacing="8">
-                            <Label Text="Du skylder"
-                                   FontSize="14"
-                                   TextColor="#374151" />
+                            <Label Text="Du skylder" FontSize="14" TextColor="#374151" />
                             <Label Text="{Binding MoneyYouOwe, StringFormat='{0} kr'}"
                                    FontSize="30"
                                    FontAttributes="Bold"
@@ -73,7 +59,6 @@
                     </Frame>
                 </Grid>
 
-                <!-- Recent debts -->
                 <Grid ColumnDefinitions="*,Auto">
                     <Label Text="Seneste gæld"
                            FontSize="20"
@@ -86,11 +71,9 @@
                             Clicked="OnOpenDebtsClicked" />
                 </Grid>
 
-                <CollectionView ItemsSource="{Binding Debts}"
-                                SelectionMode="None">
+                <CollectionView ItemsSource="{Binding Debts}" SelectionMode="None">
                     <CollectionView.EmptyView>
-                        <Label Text="Ingen gældsposter endnu."
-                               TextColor="#6B7280" />
+                        <Label Text="Ingen gældsposter endnu." TextColor="#6B7280" />
                     </CollectionView.EmptyView>
 
                     <CollectionView.ItemTemplate>
@@ -102,15 +85,17 @@
                                    HasShadow="False"
                                    BorderColor="#E5E7EB">
 
-                                <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="Auto,Auto,Auto">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDebtTapped" />
+                                </Frame.GestureRecognizers>
 
+                                <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="Auto,Auto,Auto">
                                     <Frame WidthRequest="42"
                                            HeightRequest="42"
                                            CornerRadius="21"
                                            Padding="0"
                                            BackgroundColor="#EEF2FF"
                                            HasShadow="False"
-                                           VerticalOptions="Center"
                                            Grid.RowSpan="3">
                                         <Label Text="👤"
                                                HorizontalOptions="Center"
@@ -128,8 +113,7 @@
                                            Text="{Binding Amount, StringFormat='{0} kr'}"
                                            FontSize="18"
                                            FontAttributes="Bold"
-                                           TextColor="#008B94"
-                                           VerticalOptions="Start" />
+                                           TextColor="#008B94" />
 
                                     <Label Grid.Row="1"
                                            Grid.Column="1"
@@ -141,22 +125,20 @@
                                            Grid.Column="2"
                                            Text="{Binding CreatedAt, StringFormat='{0:dd.MM.yyyy}'}"
                                            FontSize="12"
-                                           TextColor="#9CA3AF"
-                                           VerticalOptions="End" />
+                                           TextColor="#9CA3AF" />
 
-                                    <!-- 🔥 STATUS -->
                                     <Label Grid.Row="2"
                                            Grid.Column="1"
                                            Text="{Binding StatusText}"
                                            FontSize="13"
                                            FontAttributes="Bold"
                                            TextColor="#6C5CE7" />
-
                                 </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
                 <Grid ColumnDefinitions="*,Auto">
                     <Label Text="Dine venner"
                            FontSize="20"
@@ -168,28 +150,27 @@
                             TextColor="#6C5CE7"
                             Clicked="OnOpenFriendsClicked" />
                 </Grid>
+
                 <CollectionView ItemsSource="{Binding Friends}"
                                 ItemsLayout="HorizontalList"
                                 HeightRequest="90"
                                 SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <VerticalStackLayout WidthRequest="80"
-                                                 HorizontalOptions="Center"
-                                                 Spacing="6">
+                            <VerticalStackLayout WidthRequest="80" Spacing="6">
                                 <Frame WidthRequest="56"
                                        HeightRequest="56"
                                        CornerRadius="28"
                                        Padding="0"
                                        HasShadow="False"
                                        BackgroundColor="White"
-                                       BorderColor="#6C5CE7"
-                                       HorizontalOptions="Center">
+                                       BorderColor="#6C5CE7">
                                     <Label Text="👤"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"
                                            FontSize="22" />
                                 </Frame>
+
                                 <Label Text="{Binding FriendUserName}"
                                        FontSize="12"
                                        HorizontalTextAlignment="Center"
@@ -201,67 +182,6 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-
-        <Grid Grid.Row="2"
-              BackgroundColor="#031B2D"
-              Padding="20,12"
-              ColumnDefinitions="*,*,*,*">
-
-            <VerticalStackLayout Grid.Column="0"
-                                 HorizontalOptions="Center"
-                                 Spacing="4">
-                <Label Text="🏠" FontSize="22" HorizontalOptions="Center" />
-                <Label Text="Home" FontSize="12" TextColor="White" HorizontalOptions="Center" />
-            </VerticalStackLayout>
-
-            <VerticalStackLayout Grid.Column="1"
-                                 HorizontalOptions="Center"
-                                 Spacing="4">
-                <Label Text="👥" FontSize="22" HorizontalOptions="Center" />
-                <Label Text="Friends" FontSize="12" TextColor="White" HorizontalOptions="Center" />
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnOpenFriendsTapped" />
-                </VerticalStackLayout.GestureRecognizers>
-            </VerticalStackLayout>
-
-            <VerticalStackLayout Grid.Column="2"
-                                 HorizontalOptions="Center"
-                                 Spacing="4">
-                <Label Text="🔍" FontSize="22" HorizontalOptions="Center" />
-                <Label Text="Find" FontSize="12" TextColor="White" HorizontalOptions="Center" />
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnOpenFindFriendsTapped" />
-                </VerticalStackLayout.GestureRecognizers>
-            </VerticalStackLayout>
-
-            <VerticalStackLayout Grid.Column="3"
-                                 HorizontalOptions="Center"
-                                 Spacing="4">
-                <Label Text="👤" FontSize="22" HorizontalOptions="Center" />
-                <Label Text="Profile" FontSize="12" TextColor="White" HorizontalOptions="Center" />
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnProfileTapped" />
-                </VerticalStackLayout.GestureRecognizers>
-            </VerticalStackLayout>
-
-            <Frame Grid.ColumnSpan="4"
-                   WidthRequest="74"
-                   HeightRequest="74"
-                   CornerRadius="37"
-                   BackgroundColor="#6C5CE7"
-                   HasShadow="False"
-                   Padding="0"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Start"
-                   TranslationY="-34">
-                <Grid>
-                    <Button Text="+"
-                            FontSize="34"
-                            TextColor="White"
-                            BackgroundColor="Transparent"
-                            Clicked="OnCreateDebtClicked" />
-                </Grid>
-            </Frame>
-        </Grid>
+        <controls:BottomNavBar Grid.Row="2" />
     </Grid>
 </ContentPage>

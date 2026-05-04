@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PayBuddyApp.Controls.BottomNavBar">
+
+    <Grid HeightRequest="90"
+          BackgroundColor="#031B2D"
+          Padding="10,12"
+          ColumnDefinitions="*,*,*,*">
+
+        <VerticalStackLayout Grid.Column="0"
+                             HorizontalOptions="Center"
+                             Spacing="4">
+            <Label Text="🏠" FontSize="22" />
+            <Label Text="Home" FontSize="12" TextColor="White" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnHomeTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Column="1"
+                             HorizontalOptions="Center"
+                             Spacing="4">
+            <Label Text="👥" FontSize="22" />
+            <Label Text="Friends" FontSize="12" TextColor="White" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFriendsTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <Grid Grid.Column="4"
+      HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="4">
+                <Grid>
+                    <Label Text="🔔"
+                   FontSize="22"
+                   HorizontalOptions="Center" />
+
+                    <Frame x:Name="NotificationBadge"
+                   IsVisible="False"
+                   BackgroundColor="Red"
+                   CornerRadius="10"
+                   WidthRequest="20"
+                   HeightRequest="20"
+                   Padding="0"
+                   HasShadow="False"
+                   HorizontalOptions="End"
+                   VerticalOptions="Start"
+                   TranslationX="10"
+                   TranslationY="-6">
+
+                        <Label x:Name="NotificationBadgeText"
+                       Text="0"
+                       FontSize="11"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                    </Frame>
+                </Grid>
+
+                <Label Text="Noti"
+               FontSize="12"
+               TextColor="White"
+               HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnNotificationsTapped" />
+            </Grid.GestureRecognizers>
+        </Grid>
+
+        <VerticalStackLayout Grid.Column="2"
+                             HorizontalOptions="Center"
+                             Spacing="4">
+            <Label Text="🔍" FontSize="22" />
+            <Label Text="Find" FontSize="12" TextColor="White" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFindTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <Frame Grid.ColumnSpan="5"
+               WidthRequest="74"
+               HeightRequest="74"
+               CornerRadius="37"
+               BackgroundColor="#6C5CE7"
+               HasShadow="False"
+               Padding="0"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               TranslationY="-34">
+            <Button Text="+"
+                    FontSize="34"
+                    TextColor="White"
+                    BackgroundColor="Transparent"
+                    Clicked="OnCreateDebtClicked" />
+        </Frame>
+    </Grid>
+</ContentView>

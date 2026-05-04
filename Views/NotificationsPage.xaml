@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:PayBuddyApp.Controls"
+    x:Class="PayBuddyApp.Views.NotificationsPage"
+    Title="Notifikationer"
+    BackgroundColor="#F5F6FA">
+
+    <Grid RowDefinitions="*,90">
+
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <!-- Friend requests -->
+                <Label Text="Venneanmodninger"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937" />
+
+                <CollectionView ItemsSource="{Binding FriendRequests}">
+                    <CollectionView.EmptyView>
+                        <Label Text="Ingen venneanmodninger."
+                               TextColor="#6B7280" />
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="14" CornerRadius="16" BackgroundColor="White">
+                                <VerticalStackLayout>
+
+                                    <Label Text="{Binding UserName}"
+                                           FontAttributes="Bold" />
+
+                                    <Grid ColumnDefinitions="*,*" Margin="0,10,0,0">
+                                        <Button Text="Accepter"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AcceptFriendCommand}"
+                                                CommandParameter="{Binding .}" />
+
+                                        <Button Grid.Column="1"
+                                                Text="Afvis"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeclineFriendCommand}"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Debt requests -->
+                <Label Text="Gældsanmodninger"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937" />
+
+                <CollectionView ItemsSource="{Binding DebtRequests}">
+                    <CollectionView.EmptyView>
+                        <Label Text="Ingen gældsanmodninger."
+                               TextColor="#6B7280" />
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="14" CornerRadius="16" BackgroundColor="White">
+                                <VerticalStackLayout>
+
+                                    <Label Text="{Binding CreditorName}" FontAttributes="Bold" />
+                                    <Label Text="{Binding Amount, StringFormat='{0} kr'}" />
+
+                                    <Grid ColumnDefinitions="*,*" Margin="0,10,0,0">
+                                        <Button Text="Accepter"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AcceptDebtCommand}"
+                                                CommandParameter="{Binding .}" />
+
+                                        <Button Grid.Column="1"
+                                                Text="Afvis"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeclineDebtCommand}"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <controls:BottomNavBar Grid.Row="1"/>
+    </Grid>
+</ContentPage>
