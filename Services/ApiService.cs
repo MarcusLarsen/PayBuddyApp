@@ -46,8 +46,15 @@ namespace PayBuddyApp.Services
 
             var response = await _httpClient.PostAsJsonAsync(endpoint, data);
 
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"DEBUG URL: {_httpClient.BaseAddress}{endpoint}");
+            Console.WriteLine($"DEBUG STATUS: {response.StatusCode}");
+            Console.WriteLine($"DEBUG RESPONSE: {content}");
+
             if (!response.IsSuccessStatusCode)
-                return default;
+            {
+                throw new Exception(content);
+            }
 
             return await response.Content.ReadFromJsonAsync<TResponse>();
         }
