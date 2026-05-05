@@ -22,7 +22,7 @@ namespace PayBuddyApp
 
             builder.Services.AddHttpClient<IApiService, ApiService>(client =>
             {
-                client.BaseAddress = new Uri("https://paybuddyapi.onrender.com/swagger/index.html");
+                client.BaseAddress = new Uri("https://paybuddyapi.onrender.com/");
             });
 
             builder.Services.AddSingleton<AppShell>();

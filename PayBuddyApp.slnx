@@ -1,4 +1,3 @@
 <Solution>
-  <Project Path="../PayBuddyApp.Tests/PayBuddyApp.Tests.csproj" Id="613b3b92-417a-4ab6-8813-7e559a3e1d95" />
   <Project Path="PayBuddyApp.csproj" />
 </Solution>
