@@ -22,7 +22,7 @@ namespace PayBuddyApp
 
             builder.Services.AddHttpClient<IApiService, ApiService>(client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7101/");
+                client.BaseAddress = new Uri("https://marcus.buchwaldshave34.dk");
             });
 
             builder.Services.AddSingleton<AppShell>();
