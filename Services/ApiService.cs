@@ -42,29 +42,49 @@ namespace PayBuddyApp.Services
 
         public async Task<TResponse?> PostAsync<TRequest, TResponse>(string endpoint, TRequest data, bool authorized = false)
         {
-            await AddAuthHeaderAsync(authorized);
-
-            var response = await _httpClient.PostAsJsonAsync(endpoint, data);
-
-            var content = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"DEBUG URL: {_httpClient.BaseAddress}{endpoint}");
-            Console.WriteLine($"DEBUG STATUS: {response.StatusCode}");
-            Console.WriteLine($"DEBUG RESPONSE: {content}");
-
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                throw new Exception(content);
+                await AddAuthHeaderAsync(authorized);
+
+                var response = await _httpClient.PostAsJsonAsync(endpoint, data);
+
+                var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"DEBUG URL: {_httpClient.BaseAddress}{endpoint}");
+                Console.WriteLine($"DEBUG STATUS: {response.StatusCode}");
+                Console.WriteLine($"DEBUG RESPONSE: {content}");
+
+                return await response.Content.ReadFromJsonAsync<TResponse>();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DEBUG ERROR: {ex.Message}");
+                throw;
             }
 
-            return await response.Content.ReadFromJsonAsync<TResponse>();
         }
 
         public async Task<bool> PostAsync<TRequest>(string endpoint, TRequest data, bool authorized = false)
         {
-            await AddAuthHeaderAsync(authorized);
+            try
+            {
+                await AddAuthHeaderAsync(authorized);
 
-            var response = await _httpClient.PostAsJsonAsync(endpoint, data);
-            return response.IsSuccessStatusCode;
+                var response = await _httpClient.PostAsJsonAsync(endpoint, data);
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine($"DEBUG URL: {_httpClient.BaseAddress}{endpoint}");
+                Console.WriteLine($"DEBUG STATUS: {response.StatusCode}");
+                Console.WriteLine($"DEBUG RESPONSE: {content}");
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DEBUG REGISTER ERROR: {ex.Message}");
+                return false;
+            }
         }
 
         public async Task<bool> PutAsync<TRequest>(string endpoint, TRequest data, bool authorized = false)

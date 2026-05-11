@@ -43,7 +43,10 @@
                     <Picker Title="Vælg en ven"
                             ItemsSource="{Binding Friends}"
                             ItemDisplayBinding="{Binding FriendUserName}"
-                            SelectedItem="{Binding SelectedFriend}" />
+                            SelectedItem="{Binding SelectedFriend}"
+                            TextColor="#1F2937"
+                            TitleColor="#9CA3AF"
+                            BackgroundColor="White" />
 
                     <Label Text="Beløb"
                            FontSize="14"
@@ -52,7 +55,11 @@
 
                     <Entry Placeholder="Fx 150"
                            Keyboard="Numeric"
-                           Text="{Binding AmountText}" />
+                           Text="{Binding AmountText}"
+                           TextColor="#1F2937"
+                           PlaceholderColor="#9CA3AF"
+                           BackgroundColor="White"
+                           CursorPosition="0" />
 
                     <Label Text="Beskrivelse"
                            FontSize="14"
@@ -62,7 +69,10 @@
                     <Editor Placeholder="Fx Pizza, transport eller lån..."
                             AutoSize="TextChanges"
                             HeightRequest="110"
-                            Text="{Binding Description}" />
+                            Text="{Binding Description}"
+                            TextColor="#1F2937"
+                            PlaceholderColor="#9CA3AF"
+                            BackgroundColor="White" />
 
                     <Button Text="Send gældsanmodning"
                             BackgroundColor="#6C5CE7"

@@ -44,24 +44,36 @@ namespace PayBuddyApp.ViewModels
                 return;
             }
 
-            IsBusy = true;
-
-            var success = await _authService.RegisterAsync(new RegisterDto
+            try
             {
-                Username = Username,
-                Password = Password
-            });
+                IsBusy = true;
 
-            IsBusy = false;
+                var success = await _authService.RegisterAsync(new RegisterDto
+                {
+                    Username = Username,
+                    Password = Password
+                });
 
-            if (success)
-            {
-                await Application.Current!.MainPage!.DisplayAlert("Succes", "Bruger oprettet.", "OK");
-                await Shell.Current.GoToAsync("//LoginPage");
+                if (success)
+                {
+                    await Application.Current!.MainPage!.DisplayAlert("Succes", "Bruger oprettet.", "OK");
+                    await Shell.Current.GoToAsync("//LoginPage");
+                }
+                else
+                {
+                    await Application.Current!.MainPage!.DisplayAlert("Fejl", "Registrering fejlede.", "OK");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await Application.Current!.MainPage!.DisplayAlert("Fejl", "Registrering fejlede.", "OK");
+                await Application.Current!.MainPage!.DisplayAlert(
+                    "Fejl",
+                    $"Der skete en fejl under registrering: {ex.Message}",
+                    "OK");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }
